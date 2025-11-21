@@ -5,7 +5,7 @@ import {
   highestScoreFrom,
 } from '../src/adagrams.js';
 
-const LETTER_POOL = {
+export const LETTER_POOL = {
   A: 9,
   B: 2,
   C: 2,
