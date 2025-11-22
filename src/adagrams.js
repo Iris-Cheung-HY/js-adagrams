@@ -12,13 +12,28 @@ export const drawLetters = () => {
     if (newLetterPool[ranLetter] !== 0) {
       tenLetter.push(ranLetter);
       newLetterPool[ranLetter] -= 1;
+    } else if (newLetterPool[ranLetter] === 0){
+      continue;
     }
   }
   return tenLetter;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const inputDict = {};
+  for (const charOne of input) {
+    inputDict[charOne] = false;
+  }
+
+  for (const charOne of input) {
+    if (!(lettersInHand.includes(charOne))){
+      inputDict[charOne] = false;
+    } else {
+      inputDict[charOne] = true;
+    }
+  }
+
+  const 
 };
 
 export const scoreWord = (word) => {
