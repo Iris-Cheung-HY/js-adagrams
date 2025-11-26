@@ -74,11 +74,8 @@ export const highestScoreFrom = (words) => {
     } else if (score === highestScore) {
       if (wLen === wordLength) {
         continue;
-      } else if (wLen > wordLength && wLen >= 10) {
-        highestScore = score;
-        wordLength = wLen;
-        highestWord = word;
-      } else if (wLen < wordLength && wordLength < 10) {
+      } else if (wLen > wordLength && wLen >= 10 || 
+        wLen < wordLength && wordLength < 10) {
         highestScore = score;
         wordLength = wLen;
         highestWord = word;
