@@ -1,4 +1,7 @@
-import {LETTER_POOL} from '../test/adagrams.test.js';
+import {
+  LETTER_POOL, 
+  LETTER_SCORE,
+} from '../src/constValuesSource.js';
 
 export const drawLetters = () => {
   // Implement this method for wave 1
@@ -20,26 +23,67 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  const inputDict = {};
-  for (const charOne of input) {
-    inputDict[charOne] = false;
-  }
+  // if input then remove form lettersInHand
+  const inputCopy = Object.assign([], input);
+  const lettersInHandCopy = Object.assign([], lettersInHand)
 
-  for (const charOne of input) {
-    if (!(lettersInHand.includes(charOne))){
-      inputDict[charOne] = false;
-    } else {
-      inputDict[charOne] = true;
+  for (const letter of input) {
+    if (lettersInHandCopy.includes(letter)) {
+      const inpValue = inputCopy.indexOf(letter);
+      inputCopy.splice(inpValue, 1);
+      const letValue = lettersInHandCopy.indexOf(letter);
+      lettersInHandCopy.splice(letValue, 1);
     }
   }
 
-  const 
+  if (inputCopy.length === 0) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  let score = 0;
+
+  for (const letter of word.toUpperCase()) {
+    score += LETTER_SCORE[letter];
+  }
+
+  if (word.length >= 7) {
+    score += 8;
+  }
+
+  return score;
+
 };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  let highestScore = 0;
+  let wordLength = 0;
+  let highestWord = '';
+
+  for (const word of words) {
+    let score = scoreWord(word);
+    let wLen = word.length;
+    if (score > highestScore) {
+      highestScore = score;
+      wordLength = wLen;
+      highestWord = word;
+    } else if (score === highestScore) {
+      if (wLen === wordLength) {
+        continue;
+      } else if (wLen > wordLength && wLen >= 10) {
+        highestScore = score;
+        wordLength = wLen;
+        highestWord = word;
+      } else if (wLen < wordLength && wordLength < 10) {
+        highestScore = score;
+        wordLength = wLen;
+        highestWord = word;
+      }
+    };
+  }
+  return {'word': highestWord, 'score': highestScore};
 };
